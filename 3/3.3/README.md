@@ -1,8 +1,8 @@
 # CMake projects:
 
-- 3.1 - prints its internal counter, which increments every second, to stdin and log.txt, ignores 2 SIGINT signals
+- 3.3 - prints its internal counter, which increments every second, to stdin and log.txt, ignores 2 SIGINT signals
 before exiting syntax:
-  - ./3.1
+  - ./3.3
 
 # Demo
 

@@ -36,4 +36,5 @@ int main() {
     }
     tx.mtype = MSG_EXIT;
     msgsnd(msqID, &tx, SIZE_MSG, 0);
+	return 0;
 }

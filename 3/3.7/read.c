@@ -20,7 +20,7 @@ int main() {
         fprintf(stderr, "Unable to access the queue\n");
         return 1;
     }
-    printf("Connected");
+    printf("Connected\n");
     while (!done) {
         msgrcv(msqID, &rx, SIZE_MSG, 0, 0);
         if (rx.mtype == MSG_EXIT) {
@@ -31,4 +31,5 @@ int main() {
     }
     tx.mtype = MSG_EXIT;
     msgsnd(msqID, &tx, SIZE_MSG, 0);
+	return 0;
 }

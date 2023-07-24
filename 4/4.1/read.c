@@ -11,6 +11,7 @@ int main() {
     int fifoFD = open(FIFO_PATH, O_RDONLY);
     if (fifoFD == -1) {
         fprintf(stderr, "Unable to open FIFO\n");
+        semDestroy(semid);
         return 1;
     }
     long amount;
@@ -27,5 +28,6 @@ int main() {
         printf("%d ", rx);
     }
     printf("\n");
+    semDestroy(semid);
     return 0;
 }

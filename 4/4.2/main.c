@@ -20,6 +20,7 @@ int main(int argc, char* argv[]) {
     switch (pid = fork()) {
         case -1:
             printf("Unable to fork\n");
+            semDestroy(semid);
             return 1;
         case 0: {
             semLock(semid);

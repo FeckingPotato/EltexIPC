@@ -19,7 +19,7 @@ void sigHandler(int) {
 
 int main() {
     signal(SIGINT, sigHandler);
-    int shmfdcd  = shmGet(CUR_PROJ, (AMOUNT + 6) * sizeof(int));
+    int shmfd  = shmGet(CUR_PROJ, (AMOUNT + 6) * sizeof(int));
     void *shmem = shmAttach(shmfd);
     flag = (int *) shmem; // size == 1
     int *numbers = (&((int *) shmem)[2]); // size == AMOUNT

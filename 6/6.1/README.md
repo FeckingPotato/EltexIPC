@@ -37,6 +37,7 @@
    Header length: 20 bytes (0101)
 5. **00**
 
+   DSCP: Default Forwarding
    ECN: Not ECN-Capable Transport
 6. **00 22**
 
@@ -49,6 +50,7 @@
    Identification: 0xF00E
 9. **40 00**
 
+   Flags: Don't fragment
    Fragment offset: 0
 10. **40**
 

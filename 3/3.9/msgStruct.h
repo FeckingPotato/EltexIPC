@@ -3,7 +3,6 @@
 #define SIZE_MSG 512
 
 struct msgbuf {
-    int mtype;
-    int txID;
-    char text[SIZE_MSG-4];
+    long mtype;
+    char mtext[SIZE_MSG];
 };

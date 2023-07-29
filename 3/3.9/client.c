@@ -16,14 +16,14 @@ int main() {
     scanf("%d", &msqID);
     struct msgbuf rx, tx;
     tx.mtype = SERVER_ID;
-    tx.txID = 0;
     if (msgsnd(msqID, &tx, SIZE_MSG, 0) == -1) {
         perror("Unable to access the queue");
         return 1;
     }
     msgrcv(msqID, &rx, SIZE_MSG, HANDSHAKE_ID, 0);
-    tx.txID =  *((int *) rx.text);
-    printf("Connected, your ID: %d\n", tx.txID);
+    long ID = *((long *) rx.mtext);
+    *((long *) tx.mtext) = ID;
+    printf("Connected, your ID: %ld\n", ID);
     stdin->_IO_read_ptr = stdin->_IO_read_end;
     pid_t pid;
     switch (pid = fork()) {
@@ -32,8 +32,8 @@ int main() {
             return 1;
         case 0:
             while (!done) {
-                msgrcv(msqID, &rx, SIZE_MSG, tx.txID, 0);
-                printf("\nClient #%d: %s\n", rx.txID, rx.text);
+                msgrcv(msqID, &rx, SIZE_MSG, ID, 0);
+                printf("\nClient #%ld: %s\n", *((long *) rx.mtext), rx.mtext+8);
                 fflush(stdin);
             }
             return 0;
@@ -41,7 +41,8 @@ int main() {
             signal(SIGINT, exitFunc);
             while (!done) {
                 printf("Your input: ");
-                fgets(tx.text, SIZE_MSG-4, stdin);
+                tx.mtype = SERVER_ID;
+                fgets(tx.mtext+8, SIZE_MSG - 8, stdin);
                 msgsnd(msqID, &tx, SIZE_MSG, 0);
             }
             kill(pid, 9);
